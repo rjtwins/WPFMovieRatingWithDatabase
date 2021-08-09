@@ -61,6 +61,11 @@ namespace MovieRatingWithDatabase
         /// <param name="s"></param>
         void SearchStringChanged(string s);
 
+        /// <summary>
+        /// Shows the main display to user.
+        /// </summary>
+        void Show();
+
         void DisplayDetailsDisplay(IDetailedDisplay DetailsDisplay);
     }
 }

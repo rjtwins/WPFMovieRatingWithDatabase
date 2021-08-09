@@ -6,12 +6,13 @@
       xmlns:local="clr-namespace:UI"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Bookmark Details"
-      DataContext="{Binding RelativeSource={RelativeSource Self}}">
+      Title="Bookmark Details">
     <Grid>
         <Grid.ColumnDefinitions >
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
@@ -30,21 +31,24 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <!--<Image x:Name="ImageBox" Source="{Binding UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="1" Grid.Column="1" Grid.RowSpan="8" MinHeight="410" MinWidth="300" Stretch="UniformToFill"/>-->
+        <Button Grid.Column="1" Grid.Row="1" Grid.RowSpan="8" Click="Button_Click" MinWidth="50" MinHeight="1">
+            <TextBlock Text="&lt;&lt;"/>
+        </Button>
+        <Image x:Name="ImageBox" Source="{Binding Path=BitmapImage, Mode=OneWay}" Grid.Row="1" Grid.Column="2" Grid.RowSpan="8" MinHeight="410" MinWidth="300" Stretch="UniformToFill"/>
+        <TextBlock Text="Watched" Grid.Row="1" Grid.Column="4" Margin="0,5,5,5" HorizontalAlignment="Stretch"></TextBlock>
+        <TextBlock Text="Title" Grid.Row="2" Grid.Column="4" Margin="0,5,5,5"></TextBlock>
+        <TextBlock Text="Type" Grid.Row="3" Grid.Column="4" Margin="0,5,5,5"></TextBlock>
+        <TextBlock Text="Release" Grid.Row="4" Grid.Column="4" Margin="0,5,5,5"></TextBlock>
+        <TextBlock Text="Seasons" Grid.Row="5" Grid.Column="4" Margin="0,5,5,5"></TextBlock>
+        <TextBlock Text="Your Rating" Grid.Row="6" Grid.Column="4" Margin="0,5,5,5"></TextBlock>
 
-        <TextBlock Text="Watched" Grid.Row="1" Grid.Column="2" Margin="0,5,5,5"></TextBlock>
-        <TextBlock Text="Title" Grid.Row="2" Grid.Column="2" Margin="0,5,5,5"></TextBlock>
-        <TextBlock Text="Type" Grid.Row="3" Grid.Column="2" Margin="0,5,5,5"></TextBlock>
-        <TextBlock Text="Release" Grid.Row="4" Grid.Column="2" Margin="0,5,5,5"></TextBlock>
-        <TextBlock Text="Seasons" Grid.Row="5" Grid.Column="2" Margin="0,5,5,5"></TextBlock>
-        <TextBlock Text="Your Rating" Grid.Row="6" Grid.Column="2" Margin="0,5,5,5"></TextBlock>
-
-        <!--<CheckBox Checked="{Binding Source=Data, Path=Watched, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="1" Grid.Column="3" Margin="0,5,5,5" VerticalAlignment="Center"/>-->
-        <TextBlock Text="{Binding Source=Data, Path=DateTimeString, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="1" Grid.Column="4"></TextBlock>
-        <TextBlock Text="{Binding Source=Data, Path=Result.title, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="2" Grid.Column="3"></TextBlock>
-        <TextBlock Text="{Binding Source=Data, Path=MovieOrTv, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="3" Grid.Column="3"></TextBlock>
-        <TextBlock Text="{Binding Source=Data, Path=Result.year, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="4" Grid.Column="3"></TextBlock>
-        <TextBlock Text="{Binding Source=Data, Path=Result.season, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="5" Grid.Column="3"></TextBlock>
-        <!--<ComboBox x:Name="RatingMenu" ItemsSource="{Binding Path=intArray, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Width="120" Grid.Row="6" Grid.Column="3"/>-->
+        <CheckBox x:Name="WatchedCheckBox" IsChecked="{Binding Path=Watched, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="1" Grid.Column="5" Margin="0,5,5,5" VerticalAlignment="Center" Checked="CheckBox_Checked"/>
+        <TextBlock Text="{Binding Path=DateTimeString}" Grid.Row="1" Grid.Column="6" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock Text="{Binding Path=Result.title, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="2" Grid.Column="5"></TextBlock>
+        <TextBlock Text="{Binding Path=MovieOrTv, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="3" Grid.Column="5"></TextBlock>
+        <TextBlock Text="{Binding Path=Result.year, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="4" Grid.Column="5"></TextBlock>
+        <TextBlock Text="{Binding Path=Result.season, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Grid.Row="5" Grid.Column="5"></TextBlock>
+        <ComboBox x:Name="RatingBox" Width="120" Grid.Row="6" Grid.Column="4" ItemsSource="{Binding Path=ComboList}"/>
+        <TextBox VerticalScrollBarVisibility="Auto" AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap" Text="{Binding Path=Result.notes, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="8" Grid.Column="4" Grid.ColumnSpan="4" Margin="0,5,5,5"/>
     </Grid>
 </Page>

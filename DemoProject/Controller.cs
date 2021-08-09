@@ -78,6 +78,7 @@ namespace MovieRatingWithDatabase
         public void NotifyDetailsDisplayClosing(Result r)
         {
             DataController.UpdateInDatabase(r);
+            Display.Show();
         }
 
         public void RemoveBookmark(Result r)

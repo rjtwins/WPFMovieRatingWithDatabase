@@ -1,8 +1,10 @@
 ﻿using MovieRatingWithDatabase;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,7 +25,9 @@ namespace UI
     /// </summary>
     public partial class Page2 : Page, IDetailedDisplay
     {
-        private DataObject Data = new DataObject()
+        IController Controller;
+
+        public DataObject Data = new DataObject()
         {
             Result = new Result
             {
@@ -33,25 +37,16 @@ namespace UI
                 season = 0
             },
             BitmapImage = null,
-            IntArray = new int[] { 1, 2, 3, 4, 5 },
+            ComboList = new List<string>() { "1", "2", "3", "4", "5" },
             Watched = false,
             DateTimeString = "",
             MovieOrTv = ""
         };
 
-
-        IController Controller;
-
         public Page2()
         {
-            //public Result Result { get; set; }
-            //public BitmapImage BitmapImage { get; set; }
-            //public int[] IntArray { get; set; }
-            //public bool Watched { get; set; }
-            //public string DateTimeString { get; set; }
-            //public string MovieOrTv { get; set; }
             InitializeComponent();
-            DataContext = this;
+            this.DataContext = this.Data;
         }
 
         public void AddDetails(Result r)
@@ -63,14 +58,14 @@ namespace UI
             handleDateTimeString();
             HandleRatingInteger(r);
 
-            Debug.WriteLine("DATA OUTPUT: ");
-            Debug.WriteLine(Data.Result.id);
-            Debug.WriteLine(Data.Result.title);
-            Debug.WriteLine(Data.Result.season);
-            Debug.WriteLine(Data.Watched);
-            Debug.WriteLine(Data.DateTimeString);
-            Debug.WriteLine(Data.MovieOrTv);
-
+            //Debug.WriteLine("DATA OUTPUT: ");
+            //Debug.WriteLine(Data.Result.id);
+            //Debug.WriteLine(Data.Result.title);
+            //Debug.WriteLine(Data.Result.season);
+            //Debug.WriteLine(Data.Watched);
+            //Debug.WriteLine(Data.DateTimeString);
+            //Debug.WriteLine(Data.MovieOrTv);
+            //Debug.WriteLine(Data.ComboList[0]);
 
         }
 
@@ -87,7 +82,7 @@ namespace UI
         private void HandleRatingInteger(Result r)
         {
             r.rating = UTILS.LimitToRange(r.rating, 1, 5);
-            //this.RatingMenu.SelectedIndex = r.rating - 1;
+            this.RatingBox.SelectedIndex = r.rating -1;
         }
 
         private void HandleWatchedString(Result r)
@@ -115,40 +110,32 @@ namespace UI
             this.Controller = controller;
         }
 
-        //private void OnFormClosingEvent(object sender, FormClosingEventArgs e)
-        //{
-        //    this.Result.notes = this.textBox1.Text;
-        //    HandleWatchedCheckBox();
-        //    this.Result.rating = this.ratingComboBox.SelectedIndex + 1;
-        //    controller.NotifyDetailsDisplayClosing(this.Result);
-        //}
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            HandleWatchedCheckBox();
+            this.Data.Result.rating = UTILS.LimitToRange(this.RatingBox.SelectedIndex + 1, 1, 5);
+            Controller.NotifyDetailsDisplayClosing(this.Data.Result);
+        }
 
-        //private void HandleWatchedCheckBox()
-        //{
-        //    if (this.checkBox1.Checked)
-        //    {
-        //        this.Result.watched = "TRUE";
-        //        this.Result.watchDate = DateTime.Parse(this.watchedDate.Text);
-        //        return;
-        //    }
-        //    this.Result.watched = "FALSE";
-        //}
+        private void HandleWatchedCheckBox()
+        {
+            if (Data.Watched)
+            {
+                this.Data.Result.watched = "TRUE";
+                this.Data.Result.watchDate = DateTime.Parse(this.Data.DateTimeString);
+                return;
+            }
+            this.Data.Result.watched = "FALSE";
+        }
 
-        //private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        //{
-        //    if (this.checkBox1.Checked)
-        //    {
-        //        this.checkBox1.Enabled = false;
-        //        this.watchedDate.Text = DateTime.Now.ToString();
-        //        this.Result.watchDate = DateTime.Now;
-        //    }
-        //}
-
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-        //    this.Close();
-        //    controller.RemoveBookmark(Result);
-        //}
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            //Debug.WriteLine("Checkbox Checked");
+            WatchedCheckBox.IsEnabled = false;
+            this.Data.Result.watchDate = DateTime.Now;
+            this.Data.DateTimeString = DateTime.Now.ToString();
+            //Debug.WriteLine(Data.DateTimeString);
+        }
 
         public void Show()
         {
@@ -156,14 +143,36 @@ namespace UI
             MainWindow.ShowPage(this);
         }
 
-        public class DataObject
+        public class DataObject : INotifyPropertyChanged
         {
+            private string _DateTimeString;
             public Result Result { get; set; }
             public BitmapImage BitmapImage { get; set; }
-            public int[] IntArray { get; set; }
+            public List<string> ComboList { get; set; }
             public bool Watched { get; set; }
-            public string DateTimeString { get; set; }
+            public string DateTimeString
+            {
+                get { return _DateTimeString; }
+                set
+                {
+                    _DateTimeString = value;
+                    OnPropertyChanged();
+                }
+            }
             public string MovieOrTv { get; set; }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+
+            protected void OnPropertyChanged([CallerMemberName] string name = null)
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        public class ComboData
+        {
+           public string Id { get; set; }
+           public string Value { get; set; }
         }
     }
 }

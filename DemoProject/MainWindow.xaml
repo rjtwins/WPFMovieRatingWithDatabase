@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI"
         mc:Ignorable="d"
-        Title="WPFDemo" Height="450" Width="800" FontSize="15" SizeChanged="Window_SizeChanged" StateChanged="Window_StateChanged">
+        Title="WPFDemo" Height="450" Width="800" FontSize="15" SizeChanged="Window_SizeChanged" StateChanged="Window_StateChanged" MinWidth="800" MinHeight="450">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name="WindowWidth" Width="*"/>
@@ -14,7 +14,7 @@
             <RowDefinition x:Name="WindowHeight" Height="*"/>
         </Grid.RowDefinitions>
         <Rectangle x:Name="Rectangle" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-        <Frame x:Name="Frame" Height="auto" Width="auto" Grid.Column="0" Grid.Row="0" Margin="1,1,1,1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Navigated="Frame_Navigated">
+        <Frame x:Name="Frame" Height="auto" Width="auto" Grid.Column="0" Grid.Row="0" Margin="1,1,1,1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Navigated="Frame_Navigated" NavigationUIVisibility="Hidden">
         </Frame>
     </Grid>
 </Window>

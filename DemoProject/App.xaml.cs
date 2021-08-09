@@ -18,8 +18,6 @@ namespace UI
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            // here you take control
-            Debug.WriteLine("TEST1");
 
             IDataController APICaller = new DataController();
             MainWindow Display = new MainWindow();

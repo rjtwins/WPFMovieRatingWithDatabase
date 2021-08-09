@@ -55,13 +55,13 @@ namespace UI
             //Debug.WriteLine("Size of frame: " + Frame.Height + ":" + Frame.Width);
             try
             {
-                ///Debug.WriteLine("Size of page: " + (Frame.Content as Page).Height + ":" + (Frame.Content as Page).Width);
+                //Debug.WriteLine("Size of page: " + (Frame.Content as Page).Height + ":" + (Frame.Content as Page).Width);
                 (Frame.Content as Page).Height = this.Rectangle.Height;
                 (Frame.Content as Page).Width = this.Rectangle.Width;
             }
             catch(System.NullReferenceException ex)
             {
-                Debug.WriteLine("Size of page: NO WINDOW FOUND");
+                //Debug.WriteLine("Size of page: NO WINDOW FOUND");
             }
         }
 

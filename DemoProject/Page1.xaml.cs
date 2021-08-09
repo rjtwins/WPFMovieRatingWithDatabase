@@ -42,6 +42,11 @@ namespace UI
             MainWindow.ShowPage(this);
         }
 
+        public void Show()
+        {
+            MainWindow.ShowPage(this);
+        }
+
         private void SearchTimerTick(object sender, EventArgs e)
         {
             SearchTimer.Stop();
@@ -167,8 +172,8 @@ namespace UI
 
         private void BookmarksListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Debug.WriteLine("Double Mouse Click on BookmarksListView");
-            Debug.WriteLine("Selected Index: " + this.BookmarksListView.SelectedIndex);
+            //Debug.WriteLine("Double Mouse Click on BookmarksListView");
+            //Debug.WriteLine("Selected Index: " + this.BookmarksListView.SelectedIndex);
             try
             {
                 string id = ((dynamic)this.BookmarksListView.SelectedItem).Key;
